@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "next.config.ts",
+      "use": "@vercel/next"
+    }
+  ],
+  "installCommand": "pnpm install",
+  "buildCommand": "pnpm prisma generate && pnpm build"
+}
