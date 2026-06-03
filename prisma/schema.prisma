@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+}
+
+// 用户表
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String   // bcrypt 加密存储
+  role      Role     @default(USER)
+  points    Int      @default(0) // 积分余额
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 关联
+  comments  Comment[]
+  replies   Reply[]
+  highlights Highlight[]
+  pointLogs PointLog[]
+
+  @@map("users")
+}
+
+// 用户角色
+enum Role {
+  USER
+  CREATOR
+  ADMIN
+}
+
+// 积分变动日志
+model PointLog {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String   // 'EARN' | 'SPEND'
+  amount    Int
+  reason    String   // '高价值评论' | '兑换商品' 等
+  createdAt DateTime @default(now())
+
+  // 关联
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("point_logs")
+}
+
+// 文章缓存表（存储 Sanity 文章元数据）
+model Article {
+  id             String   @id // Sanity Document ID
+  slug           String   @unique
+  title          String
+  category       String?  // '自我探索' | '自我提升' | '自我实现'
+  currentVersion Int      @default(1)
+  publishedAt    DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // 关联
+  comments       Comment[]
+  highlights     Highlight[]
+  versions       ArticleVersion[]
+
+  @@map("articles")
+}
+
+// 文章版本记录
+model ArticleVersion {
+  id          String   @id @default(cuid())
+  articleId   String
+  version     Int
+  versionNote String?  // 版本变更说明
+  createdAt   DateTime @default(now())
+
+  // 关联
+  article     Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@map("article_versions")
+}
+
+// 划线表（存储段评位置信息）
+model Highlight {
+  id           String    @id @default(cuid())
+  articleId    String
+  userId      String
+  commentId   String?   @unique // 关联的评论（可选，表示段评）
+  selectedText String    // 选中文字快照（用于回显）
+  startOffset Int       // 字符级起始位置
+  endOffset   Int       // 字符级结束位置
+  createdAt   DateTime  @default(now())
+  deletedAt   DateTime? // 软删除
+
+  // 关联
+  article     Article   @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment     Comment? @relation(fields: [commentId], references: [id], onDelete: SetNull)
+
+  @@map("highlights")
+}
+
+// 评论表
+model Comment {
+  id           String    @id @default(cuid())
+  articleId    String
+  userId       String
+  content      String    // 评论内容
+  status       CommentStatus @default(PENDING) // 审核状态
+  isHighValue  Boolean   @default(false) // 是否高价值
+  selectedText String?   // 段评选中的文字（可为 null 表示文末评论）
+  startOffset  Int?      // 段评起始位置（字符偏移）
+  endOffset    Int?      // 段评结束位置
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime? // 软删除
+
+  // 关联
+  article     Article   @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  replies     Reply[]
+  highlight   Highlight?
+
+  @@map("comments")
+}
+
+// 评论状态
+enum CommentStatus {
+  PENDING   // 待审核
+  APPROVED  // 已通过
+  REJECTED  // 已拒绝
+}
+
+// 回复表
+model Reply {
+  id        String    @id @default(cuid())
+  commentId String
+  userId    String
+  content   String
+  createdAt DateTime  @default(now())
+  deletedAt DateTime? // 软删除
+
+  // 关联
+  comment   Comment   @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("replies")
+}

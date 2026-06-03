@@ -1,0 +1,127 @@
+[
+  {
+    "id": "1",
+    "articleId": "1",
+    "author": "张三",
+    "authorId": "1",
+    "text": "这篇文章让我重新思考了自己的人生方向，非常有启发！",
+    "isHighValue": true,
+    "createdAt": "2024-06-01 10:30",
+    "status": "rejected"
+  },
+  {
+    "id": "2",
+    "articleId": "1",
+    "author": "李四",
+    "authorId": "2",
+    "text": "写得很好，特别是关于能量交换的部分。",
+    "createdAt": "2024-06-01 11:45",
+    "status": "approved"
+  },
+  {
+    "id": "3",
+    "articleId": "1",
+    "author": "王五",
+    "authorId": "3",
+    "text": "感谢分享，受益匪浅",
+    "createdAt": "2024-06-01 12:30",
+    "status": "approved"
+  },
+  {
+    "id": "4",
+    "articleId": "2",
+    "author": "赵六",
+    "authorId": "4",
+    "text": "方法论很实用，已经推荐给朋友了",
+    "isHighValue": true,
+    "createdAt": "2024-05-31 15:20",
+    "status": "approved"
+  },
+  {
+    "id": "5",
+    "articleId": "2",
+    "author": "钱七",
+    "authorId": "5",
+    "text": "收藏了，准备认真研读",
+    "createdAt": "2024-05-31 16:40",
+    "status": "approved"
+  },
+  {
+    "id": "6",
+    "articleId": "3",
+    "author": "孙八",
+    "authorId": "6",
+    "text": "内容一般",
+    "createdAt": "2024-05-30 09:15",
+    "status": "rejected"
+  },
+  {
+    "id": "7",
+    "articleId": "1",
+    "author": "周九",
+    "authorId": "7",
+    "text": "写得非常棒！",
+    "createdAt": "2024-06-01 14:30",
+    "status": "pending"
+  },
+  {
+    "articleId": "1",
+    "author": "路北行",
+    "authorId": "2",
+    "text": "很好",
+    "id": "1780283171654",
+    "createdAt": "2026/6/1 11:06:11",
+    "status": "pending",
+    "isHighValue": false
+  },
+  {
+    "articleId": "1780286094910",
+    "author": "路北行",
+    "authorId": "2",
+    "text": "有帮助！",
+    "id": "1780288163401",
+    "createdAt": "2026/6/1 12:29:23",
+    "status": "approved",
+    "isHighValue": false
+  },
+  {
+    "articleId": "1780356329157",
+    "author": "路北行",
+    "authorId": "2",
+    "text": "和那后",
+    "id": "1780356352744",
+    "createdAt": "2026/6/2 07:25:52",
+    "status": "approved",
+    "isHighValue": false
+  },
+  {
+    "articleId": "1780356877972",
+    "author": "路北行",
+    "authorId": "2",
+    "text": "的萨芬",
+    "id": "1780388334366",
+    "createdAt": "2026/6/2 16:18:54",
+    "status": "pending",
+    "isHighValue": false
+  },
+  {
+    "articleId": "1780446070681",
+    "author": "路北行",
+    "authorId": "2",
+    "text": "haohahoaho",
+    "id": "1780446105193",
+    "createdAt": "2026/6/3 08:21:45",
+    "status": "approved",
+    "isHighValue": false
+  },
+  {
+    "articleId": "1780446823110",
+    "author": "路北行",
+    "authorId": "2",
+    "text": "haok",
+    "id": "1780446839487",
+    "createdAt": "2026/6/3 08:33:59",
+    "status": "approved",
+    "isHighValue": false
+  }
+]
